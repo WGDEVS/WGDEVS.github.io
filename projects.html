@@ -4,18 +4,15 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="initial-scale=1">
 		<title> WGDEV Projects </title>
-		
+
 		<!-- We link the CDN ccs files here -->
 		<!-- Latest compiled and modified CSS -->
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-		
+
 		<!-- Optional Theme -->
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-		
-		<!-- Icon -->
-		<link rel="shortcut icon" href="favicon2.ico" />
-		
+
 	</head>
 	<body style="padding-top:70px">
 		<!--Navbar-->
@@ -30,37 +27,30 @@
 					</button>
 					<a class="navbar-brand" href="index.html">
 						<div class="row">
-						<div class="col-xs-3">
-							<img src="images/alien.png" alt="ðŸ‘½" style="margin-top:-12px;margin-left:-12px;width:40px;height:45px"></img>
-						</div>
-						<div class="col-xs-9">
+						<div class="col-xs-12">
 							<p>WGDEV</p>
 						</div>
 						</div>
 					</a>
 				</div>
 				<div class="collapse navbar-collapse" id="navigationbar">
-					<ul class="nav navbar-nav">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="plant-simulator.html">Plant Simulator</a></li>
-						<!--li><a href="hl3.html">Half-life 3</a></li--> 
-					</ul>
 					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.html">Home</a></li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><strong>Projects </strong><span class="caret"></span></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><b>Projects</b><span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li id="navAll"><a href="projects.html">All</a></li>
 								<li id="navAndroid"><a href="projects.html?li=Android">Android (Java)</a></li>
 								<li id="navPython"><a href="projects.html?li=Python">Python</a></li>
-								<li id="navJavascript"><a href="projects.html?li=Javascript">Javascript</a></li>
 								<li id="navCSharp"><a href="projects.html?li=CSharp">C#</a></li>
 							</ul>
 						</li>
-						<li><a href="about.html">About Me</a></li> 
+						<li><a href="resume.html">Resume</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
+
 		<div class="container-fluid">
 			<div id="androidPanel">
 				<div class="container game">
@@ -71,7 +61,8 @@
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<img class="img-rounded gameImage" width="100%" src="images/project_swippy.jpg" /></div>
+							<img class="img-rounded gameImage" width="100%" src="images/project_swippy.jpg" />
+						</div>
 						<div class="col-md-6">
 							<!--Description-->
 							<p class="gameInfo">
@@ -87,7 +78,7 @@
 									<li><p>Interstitial ads with leadbolt integration.</p></li>
 									<li><p>Ability to resume paused games with careful management of the andoid lifecycle.</p></li>
 									<li><p>Procedural generation of the geometric shapes with recursion.</p></li>
-								
+
 								</ul>
 							</div>
 							</p>
@@ -164,34 +155,6 @@
 					</div>
 				</div>
 			</div>
-			<div id="javascriptPanel">
-				<div class="container game">
-					<div class="row">
-						<div class="col-xs-12">
-							<h2>Plant Simulator</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<img class="img-rounded gameImage" width="250" height="100%" src="images/project_plants.png" /></div>
-						<div class="col-md-6">
-							<!--Description-->
-							<p class="gameInfo">
-							<p>WIP</p>
-							<p>Features:</p>
-							<div class="col-xs-12 bg-info" style="padding-top: 10px; margin-bottom: 10px">
-								<ul>
-									<li><p>Cool Stuff</p></li
-								</ul>
-							</div>
-							</p>
-							<!--Buttons-->
-							<a class="btn btn-default" href="plant-simulator.html">Play in Browser</a> 
-
-						</div>
-					</div>
-				</div>
-			</div>
 			<div id="csharpPanel">
 				<div class="container game">
 					<div class="row">
@@ -218,7 +181,7 @@
 							</div>
 							</p>
 							<!--Buttons-->
-							<a class="btn btn-default" href="https://github.com/WGDEVS/SeaBattle/blob/master/WGDEV_SeaBattle.exe?raw=true">Download</a> 
+							<a class="btn btn-default" href="https://github.com/WGDEVS/SeaBattle/blob/master/WGDEV_SeaBattle.exe?raw=true">Download</a>
 							<a href="https://github.com/WGDEVS/SeaBattle" target="_blank" style="padding-left:1%;">
 								<img src="images/git-badge.png" width="129" height="100%"  border="0" alt="View WGDEV's Github" style="border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;border-bottom: 1px solid">
 							</a>
@@ -227,12 +190,21 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!--Footer-->
 		<div class="bs-footer" role="contentinfo">
 			<p style="border-top: 1px solid;margin-top:10px"></p>
-			<p class="text-center">copyright WGDEV 2015</p>
+			<p class="text-center">&#169 WGDEV
+				<script language="JavaScript" type="text/javascript">
+					now = new Date
+					theYear=now.getYear()
+					if (theYear < 1900)
+					theYear=theYear+1900
+					document.write(theYear)
+				</script>
+			</p>
 		</div>
+
 		<!--Scripts-->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
