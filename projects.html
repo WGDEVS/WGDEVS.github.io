@@ -10,11 +10,16 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-		<!-- Optional Theme -->
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+		<!-- devicons -->
+		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
+
+		<link rel="stylesheet" href="css/main.css">
 
 	</head>
-	<body style="padding-top:70px">
+	<body>
 		<!--Navbar-->
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container-fluid" id="navfluid">
@@ -53,10 +58,14 @@
 
 		<div class="container-fluid">
 			<div id="androidPanel">
-				<div class="container game">
+				<div class="container project-panel">
 					<div class="row">
 						<div class="col-xs-12">
-							<h2>Swippy Bird</h2>
+							<h2 class="project-header">Swippy Bird</h2>
+							<h2 class="devicons">
+	 							<i class="devicon devicon-android-plain colored"></i>
+	 							<i class="devicon devicon-java-plain colored"></i>
+							</h2>
 						</div>
 					</div>
 					<div class="row">
@@ -68,7 +77,7 @@
 							<p class="gameInfo">
 							<p>A game where you play as a bird and avoid geometric shapes by swiping the screen. How far can the bird make it?</p>
 							<p>Features:</p>
-							<div class="col-xs-12 bg-info" style="padding-top: 10px; margin-bottom: 10px">
+							<div class="col-xs-12 feature-description">
 								<ul>
 									<li><p>Movement of the bird with touch screen input.</p></li>
 									<li><p>Beautiful HUD drawn using android canvas.</p></li>
@@ -83,19 +92,22 @@
 							</div>
 							</p>
 							<!--Buttons-->
-							<a href="https://play.google.com/store/apps/details?id=com.wgdev.swippybird&hl=en" target="_blank" style="padding-left:1%;">
-								<img alt="Get it on Google Play"
-									src="images/google-play-badge.png" width="129" height="100%"/>
+							<a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.wgdev.swippybird&hl=en" target="_blank">
+								<i class="fa fa-play"></i>
+								Google Play
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="pythonPanel">
-				<div class="container game">
+				<div class="container project-panel">
 					<div class="row">
 						<div class="col-xs-12">
-							<h2>Integer Sorter</h2>
+							<h2 class="project-header">Integer Sorter</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-python-plain colored"></i>
+							</h2>
 						</div>
 					</div>
 					<div class="row">
@@ -106,7 +118,7 @@
 							<p class="gameInfo">
 							<p>A program that contains distinct functions for sorting a list of integers. The program recieves a list of integers, sorts the list using a method specified by the user and prints the sorted list to the screen.</p>
 							<p>Features an implementation of:</p>
-							<div class="col-xs-12 bg-info" style="padding-top: 10px; margin-bottom: 10px">
+							<div class="col-xs-12 feature-description">
 								<ul>
 									<li><p>Mergesort</p></li>
 									<li><p>Insertion Sort</p></li>
@@ -117,16 +129,20 @@
 							</div>
 							</p>
 							<!--Buttons-->
-							<a href="https://github.com/WGDEVS/IntegerSorter" target="_blank" style="padding-left:1%;">
-								<img src="images/git-badge.png" width="129" height="100%"  border="0" alt="View WGDEV's Github" style="border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;border-bottom: 1px solid">
+							<a class="btn btn-primary" href="https://github.com/WGDEVS/IntegerSorter" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
 							</a>
 						</div>
 					</div>
 				</div>
-				<div class="container game">
+				<div class="container project-panel">
 					<div class="row">
 						<div class="col-xs-12">
-							<h2>Router Simulator</h2>
+							<h2 class="project-header">Router Simulator</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-python-plain colored"></i>
+							</h2>
 						</div>
 					</div>
 					<div class="row">
@@ -137,7 +153,7 @@
 							<p class="gameInfo">
 							<p>This program simulates a network consisting of routers. It features a command line interface to build and maintain the network and to display information about the network.</p>
 							<p>Features:</p>
-							<div class="col-xs-12 bg-info" style="padding-top: 10px; margin-bottom: 10px">
+							<div class="col-xs-12 feature-description">
 								<ul>
 									<li><p>Finds the best route between two routers using dijkstra's algorithm</p></li>
 									<li><p>Quickly looks up important data about the network using binary search</p></li>
@@ -148,18 +164,23 @@
 							</div>
 							</p>
 							<!--Buttons-->
-							<a href="https://github.com/WGDEVS/RouterSim" target="_blank" style="padding-left:1%;">
-								<img src="images/git-badge.png" width="129" height="100%"  border="0" alt="View WGDEV's Github" style="border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;border-bottom: 1px solid">
+							<a class="btn btn-primary" href="https://github.com/WGDEVS/RouterSim" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="csharpPanel">
-				<div class="container game">
+				<div class="container project-panel">
 					<div class="row">
 						<div class="col-xs-12">
-							<h2>Sea Battle: Custom Mission</h2>
+							<h2 class="project-header">Sea Battle: Custom Mission</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-windows8-original colored"></i>
+								<i class="devicon devicon-csharp-plain colored"></i>
+							</h2>
 						</div>
 					</div>
 					<div class="row">
@@ -170,7 +191,7 @@
 							<p class="gameInfo">
 							<p>Classic game of sea battle, with options to customize gameplay.</p>
 							<p>Features:</p>
-							<div class="col-xs-12 bg-info" style="padding-top: 10px; margin-bottom: 10px">
+							<div class="col-xs-12 feature-description">
 								<ul>
 									<li><p>Very modular game items (ships/planes/missiles) made possible with object oriented programing</p></li>
 									<li><p>Efficient initialization of games and handling of turns using polymorphism</p></li>
@@ -181,9 +202,13 @@
 							</div>
 							</p>
 							<!--Buttons-->
-							<a class="btn btn-default" href="https://github.com/WGDEVS/SeaBattle/blob/master/WGDEV_SeaBattle.exe?raw=true">Download</a>
-							<a href="https://github.com/WGDEVS/SeaBattle" target="_blank" style="padding-left:1%;">
-								<img src="images/git-badge.png" width="129" height="100%"  border="0" alt="View WGDEV's Github" style="border-top: 1px solid;border-left: 1px solid;border-right: 1px solid;border-bottom: 1px solid">
+							<a class="btn btn-primary" href="https://github.com/WGDEVS/SeaBattle/blob/master/WGDEV_SeaBattle.exe?raw=true" target="_blank">
+								Download
+								<i class="fa fa-download"></i>
+							</a>
+							<a class="btn btn-primary" href="https://github.com/WGDEVS/SeaBattle" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
 							</a>
 						</div>
 					</div>
@@ -193,7 +218,6 @@
 
 		<!--Footer-->
 		<div class="bs-footer" role="contentinfo">
-			<p style="border-top: 1px solid;margin-top:10px"></p>
 			<p class="text-center">&#169 WGDEV
 				<script language="JavaScript" type="text/javascript">
 					now = new Date

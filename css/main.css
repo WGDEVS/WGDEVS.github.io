@@ -1,0 +1,46 @@
+/* Styles for common elements */
+body{
+  padding-top: 60px;
+}
+
+.bs-footer{
+  border-top: 1px solid;
+  margin-top:10px;
+}
+
+/* Styles for page wide buttons */
+.btn-default{
+  background-color: #F6F6F6;
+  margin-top:10px;
+  width: 100%;
+}
+
+/* Styles for tiny buttons */
+.btn-primary{
+  background-color: black;
+  color: white;
+}
+
+/* Styles for feature descriptions of projects */
+.feature-description{
+  background-color: #F6F6F6;
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* Styles for panels of projects*/
+.project-panel{
+  margin-top:  10px;
+	border-top: 1px solid;
+}
+
+/* Styles for header of panels of projects*/
+.project-header {
+  float: left;
+}
+
+/* Styles for language icons */
+.devicons{
+  float: right;
+  margin-left: 10px;
+}
