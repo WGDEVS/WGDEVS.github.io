@@ -10,13 +10,31 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
+		<!--Common scripts-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/ie10-viewport-bug-workaround.js"></script>
+
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 		<!-- devicons -->
 		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
 
+		<!-- stuff for the datepicker -->
+		<script type="text/javascript" src="js/jquery.simple-dtpicker.js"></script>
+		<link type="text/css" href="css/jquery.simple-dtpicker.css" rel="stylesheet">
+
+		<!-- stuff for the calendar -->
+		<link href='css/fullcalendar.css' rel='stylesheet' />
+		<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+		<script src='js/moment.min.js'></script>
+		<script src='js/fullcalendar.min.js'></script>
+
+		<!-- style -->
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/whenistudyfrontend.css">
+
 
 	</head>
 	<body>
@@ -61,23 +79,58 @@
 
 		<div class="container-fluid">
 					<!--display:none-->
-			<div id="initalPanel" style="display:block">
-				<div class="row">
-					<div class="col-xs-10 col-xs-push-1">
-						<a class="btn btn-default" href="https://ca.linkedin.com/pub/william-gao/103/4b4/272" target="_blank">
-							Linked
-							<i class="fa fa-linkedin-square"></i>
-						</a>
+					<!--display:block-->
+			<div class="col-xs-8 col-xs-push-2">
+				<!--the inital form-->
+				<div id="mainPanel" style="display:block">
+					<h1><center>Main Menu</center></h1>
+					<div class="row">
+						<button onClick="NextPanel()" class="btn btn-default">
+							New Study Schedule
+							<i class="fa fa-calendar-plus-o"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-default">
+							Load from File
+							<i class="fa fa-arrow-left"></i>
+							<i class="fa fa-folder"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-default">
+							Load from Browser
+							<i class="fa fa-arrow-left"></i>
+							<i class="fa fa-internet-explorer"></i>
+						</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-10 col-xs-push-1">
-						<a class="btn btn-default" href="https://github.com/WGDEVS" target="_blank">
-							GitHub
-							<i class="fa fa-github"></i>
-						</a>
-					</div>
+
+				<!--the exam input form-->
+				<div id="examPanel" style="display:none">
+					<h1><center>Enter Exams</center></h1>
+
+					<h4 style="display: inline">Staring Time:</h4>
+
+					<input name="date" id="txtCurrentDate" style="display: inline">
+					</input>
+					<script type="text/javascript">
+						$(function(){
+							$('*[name=date]').appendDtpicker();
+						});
+					</script>
 				</div>
+
+				<!--the avail form-->
+				<div id="availPanel" style="display:none">
+					<h1><center>Enter Time Spent Studying By Date</center></h1>
+				</div>
+
+				<!--the next button-->
+				<button onClick="NextPanel()" id="nextButton" class="btn btn-default" style="display: none">
+					Next Step
+					<i class="fa fa-arrow-circle-o-right"></i>
+				</button>
 			</div>
 		</div>
 
@@ -94,10 +147,10 @@
 			</p>
 		</div>
 
-		<!--Scripts-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/ie10-viewport-bug-workaround.js"></script>
-		<script src="js/projectsfilter.js"></script>
+
+		<!-- code -->
+		<script src="js/whenistudy/exampanelbackend.js"></script>
+		<script src="js/whenistudy/availpanelbackend.js"></script>
+		<script src="js/whenistudy/whenistudybackend.js"></script>
 	</body>
 </html>
