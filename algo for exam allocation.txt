@@ -1,0 +1,15 @@
+I want to study for an optimal 3 hours for a course
+
+Start at the last day
+list the courses in reverse cronological deadline order
+
+
+Ignore all courses that have already had their deadline dates passed [they are pushed around in the list but don't do much]
+If the course has the exam on that day ignore it for now <-
+Give 3 hours for each unignored course and loop until you run out of time or reach the end of the list,
+if you reach the end, then simply pad the time with all the time from a single course in the list and move on
+If at any time during the last two steps a course runs out of time, pop it from the list
+<- If still empty assign time from course on that day (last first, assign until time runs out from either)
+
+Reorder the list, so that the one cut in half/next is now first, if the last day was the deadline, it gets moved to the top
+repeat for this day.

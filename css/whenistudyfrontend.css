@@ -25,3 +25,22 @@ input{
   margin-left: 20px;
   margin-right: 10px;
 }
+
+/* Formating for the table in the allocPanel*/
+.alloctable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.alloctr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.alloctd, .allocth {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+.expand {
+    width: 100%;
+}

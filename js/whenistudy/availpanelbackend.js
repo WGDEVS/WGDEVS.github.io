@@ -4,26 +4,26 @@ var MAX_HOURS_IN_DAY = 24;
 
 function AvailPanelInitalize() {
 
-  var curCalendar = AvailPanelNewCalendar(currentDate);
-
   var i = new Date(currentDate.getTime());
 
   i.setHours(0,0,0,0);
 
   currentEventIndex = 0;
+  var first = true;
 
   for (; i.getTime() <= examDate[examDate.length - 1].examTime.getTime(); i.setDate(i.getDate() + 1)){
-    if (i.getDate() <= 1) {
-      curCalendar = AvailPanelNewCalendar(i);
+    if (i.getDate() <= 1 || first) {
+      studyCalendars.splice(0, 0, AvailPanelNewCalendar(i));
     }
+    first = false;
 
-    curCalendar.fullCalendar( 'renderEvent',
+    studyCalendars[0].fullCalendar( 'renderEvent',
     {
       title : '0 h',
       start: i,
       inputTime : true,
       hours : 0,
-      calendar : curCalendar,
+      calendar : studyCalendars[0],
       backgroundColor : 'green',
       timeFormat: ''
     });
@@ -33,12 +33,12 @@ function AvailPanelInitalize() {
       i.getDate() == examDate[currentEventIndex].examTime.getDate() &&
       i.getMonth() == examDate[currentEventIndex].examTime.getMonth() &&
       i.getFullYear() == examDate[currentEventIndex].examTime.getFullYear()) {
-        curCalendar.fullCalendar( 'renderEvent',
+        studyCalendars[0].fullCalendar( 'renderEvent',
         {
           title : examDate[currentEventIndex].examName,
           start: examDate[currentEventIndex].examTime,
           inputTime : false,
-          calendar : curCalendar
+          calendar : studyCalendars[0]
         });
         currentEventIndex ++;
       }
@@ -72,7 +72,7 @@ function AvailPanelNewCalendar(date) {
       var txtHours = $("<input></input>");
       txtHours.attr('type', 'text');
       txtHours.addClass('fc-event');
-      txtHours.val(event.hours);
+      txtHours.val(event.title.slice(0, -2));
       txtHours.css('background-color', 'white');
       txtHours.css('color', 'black');
       txtHours.css('display', 'inline');
@@ -89,8 +89,13 @@ function AvailPanelNewCalendar(date) {
       txtHours.select();
 
       txtHours.on('blur',function () {
-        event.hours = parseFloat(txtHours.val());
-        event.title = txtHours.val() + " h";
+        if (txtHours.val().trim() === "") {
+          event.hours = 0;
+          event.title = "0 h";
+        } else {
+          event.hours = parseFloat(txtHours.val());
+          event.title = txtHours.val()  + " h";
+        }
         event.backgroundColor = IsValidHours(event.hours) ? 'green' : 'red';
         event.calendar.fullCalendar( 'rerenderEvents' );
       });

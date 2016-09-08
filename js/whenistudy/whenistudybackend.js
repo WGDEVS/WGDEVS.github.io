@@ -12,13 +12,15 @@ const IND_RESULT = 4; //Index of the panel where the completed study schedule is
 var PANEL_DISPLAY = [document.getElementById("mainPanel"),
                      document.getElementById("examPanel"),
                      document.getElementById("availPanel"),
-                    /* document.getElementById("allocPanel"),
+                    document.getElementById("allocPanel") /*,
                      document.getElementById("resultPanel") */
                    ];
 
 var NEXT_BUTTON = document.getElementById("nextButton");
 
 var TXT_CURRENT_DATE = document.getElementById("txtCurrentDate");
+
+var txtMaxCourseDailyHours = document.getElementById("txtMaxCourseDailyHours");
 
 var USES_NEXT = [false,true,true,true, false];
 
@@ -28,10 +30,18 @@ var USES_NEXT = [false,true,true,true, false];
 var activePanel = 0;
 
 var examDateInputs = new ExamEntry(); //used to store data about entries in exam panel
-
 var currentDate = null;
-var examDate = []; //array of exam{str examName, str examTime}
 
+var studyCalendars = []; //array of calendars for pulling studyDate information
+var ExamAllocEntryInputs = []; //array of inputs for pulling information
+
+//Intermidate calculation variables
+var examDate = []; //array of exams: {str examName, date examTime}, sorted in ascending examTime
+var studyDate = []; //array of dates and how long the student will study for each of those dates: {date date, float hours}
+var examAllocEntry = [] //array of time allocations for exams: {int examDateIndex, int hoursAllocated}
+var targetHourBlock = 0; //Blocks to allocate study time for a course
+
+var resultData; //{examDates:[{str examName, date examTime}, ...],studyDates:[{date:date, 3:3.4, 4:2.3} ...]}; 
 /*SECTION: FUNCTIONS*/
 
 /*Checks the requirements of moving to the next panel, can be set so that a user
@@ -62,6 +72,8 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
         alert("The course \"" + examName1 + "\" has an invalid date!");
       } else if (examTime1.getTime() <= currentDate.getTime()) {
         alert("The course \"" + examName1 + "\" finishes before the Starting Time!");
+      } else if (examName1.indexOf("\"") != -1){
+        alert("The course name \"" + examName1 + "\" contains the illegal character \" !");
       } else {
         examDate.push({examName:examName1, examTime:examTime1});
         continue;
@@ -73,12 +85,81 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     examDate.sort(function(date1, date2) {
       return date1.examTime - date2.examTime;
     });
+    return true;
+  },
+  function() {
+    studyDate = [];
+
+    for (var i = 0; i < studyCalendars.length; i++) {
+      var currentStudyCalendarEvents = studyCalendars[i].fullCalendar( 'clientEvents')
+      for (var j = 0; j < currentStudyCalendarEvents.length; j++) {
+        if (currentStudyCalendarEvents[j].hours != null) {
+          if (!IsValidHours(currentStudyCalendarEvents[j].hours)) {
+            var dateTemp = new Date(currentStudyCalendarEvents[j].start + 0);
+            alert("You are spending an invalid amount of hours studying on " + dateTemp.toUTCString().slice(0, 16) + "!");
+            return false;
+          } else if (currentStudyCalendarEvents[j].hours > 0) {
+            studyDate.push({date:currentStudyCalendarEvents[j].start, hours:currentStudyCalendarEvents[j].hours});
+          }
+        }
+      }
+    }
+
+    if (studyDate.length <= 0) {
+      alert("You have not allocated any study time, click a green bar on a date to allocate study time for said date!");
+      return false;
+    }
+
+    studyDate.sort(function(date1, date2) {
+      return date2.date - date1.date;
+    });
 
     return true;
   },
   function() {
+    targetHourBlock = parseInt(txtMaxCourseDailyHours.value);
+    if (isNaN(targetHourBlock)) {
+      alert("Invalid maximum hours spent on single subject!\n(3 hours recommended)");
+      return false;
+    }
 
+    ExamAllocEntry = [];
+    var culTimeUsed = 0;
 
+    for (var i = 0; i < ExamAllocEntryInputs.length; i++) {
+      var tempHoursAllocated = parseFloat(ExamAllocEntryInputs[i].txtTimeAllocation.val());
+      if ($.trim(ExamAllocEntryInputs[i].txtTimeAllocation.val()) === "") {
+        tempHoursAllocated = 0;
+      }
+
+      if (isNaN(tempHoursAllocated) || tempHoursAllocated < 0) {
+        alert("The course \"" + examDate[i].examName + "\" has an invalid amount of time allocated!");
+        return false;
+      }
+
+      culTimeUsed += tempHoursAllocated;
+      if (culTimeUsed > ExamAllocEntryInputs[i].maxTimeAllocation) {
+        alert("The time limit leading up to the course \"" + examDate[i].examName + "\" has been exceeded.\nIf you need more time studying for later courses, take away time from earlier courses!");
+        return false;
+      }
+      ExamAllocEntry.push({examDateIndex:i, hoursAllocated:tempHoursAllocated});
+    }
+
+    if (culTimeUsed == 0) {
+      alert("You have not allocated any time for your courses, enter the time you want to spend on a course in the \"Hours Allocated\" column!");
+      return false;
+    }
+
+    if (culTimeUsed < ExamAllocEntryInputs[ExamAllocEntryInputs.length - 1].maxTimeAllocation) {
+      if (!confirm('You have not allocated all your study time. To avoid this message, ensure the hours left for the bottom most course is 0. continue?')) {
+        return false;
+      }
+    }
+
+    alert("yay");
+    return false;
+  },
+  function() {
     return false;
   }
 ];
@@ -111,6 +192,9 @@ var INITIALIZE_PANEL = [
   },
   function() {
     AvailPanelInitalize();
+  },
+  function() {
+    AllocPanelInitialize();
   }
 ];
 
@@ -125,11 +209,11 @@ function NextPanel() {
   }
 }
 
-/*SECTION: CalendarEventLite */
-class StudyDate {
-  /*
-  class variables:
-  date
-
-  */
+/*Changes resultData to contain a study schedule
+  requires: all Intermidate calculation variables must be filled in
+  effects: WILL corrupt Intermidate calculation variables
+           may change resultData */
+function GenerateStudyTime() {
+  var tempExamAllocationQueueTemp = [];//for exams on dates with
+  var tempExamAllocationQueue = [];
 }

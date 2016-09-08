@@ -108,7 +108,7 @@
 
 				<!--the exam input form-->
 				<div id="examPanel" style="display:none">
-					<h1><center>Enter Exams</center></h1>
+					<h1><center>Enter Courses</center></h1>
 
 					<h4 style="display: inline">Staring Time:</h4>
 
@@ -123,7 +123,30 @@
 
 				<!--the avail form-->
 				<div id="availPanel" style="display:none">
-					<h1><center>Enter Time Spent Studying By Date</center></h1>
+					<h1><center>Enter daily study time</center></h1>
+					<h3><center>(click a green bar to assign time and try to underestimate)</center></h3>
+				</div>
+
+				<div id="allocPanel" style="display:none">
+					<h1><center>Enter study time per course</center></h1>
+
+					<center>
+						<h4 style="display: inline">Enter maximum hours you can spend on a single subject within a day: </h4>
+						<input id="txtMaxCourseDailyHours" style="display: inline" size="5">
+					</center>
+
+					<table id="allocMainTable" class="alloctable padded-item">
+						<tr class="alloctr">
+							<th class="allocth"><center>Course</center></th>
+							<th class="allocth"><center>Hours Allocated</center></th>
+							<th class="allocth"><center>Hours left</center></th>
+						</tr>
+					</table>
+				</center>
+				</div>
+
+				<div id="resultPanel" style="display:none">
+					<h1><center>Your study schedule</center></h1>
 				</div>
 
 				<!--the next button-->
@@ -133,6 +156,7 @@
 				</button>
 			</div>
 		</div>
+		<p><center><small>For entertainment purposes only.<br>Not a substitue for your academic advisor&trade;.<br>WGDEV is not responsibile for any harm misuse of this site causes.</small></center></p>
 
 		<!--Footer-->
 		<div class="bs-footer" role="contentinfo">
@@ -151,6 +175,7 @@
 		<!-- code -->
 		<script src="js/whenistudy/exampanelbackend.js"></script>
 		<script src="js/whenistudy/availpanelbackend.js"></script>
+		<script src="js/whenistudy/allocpanelbackend.js"></script>
 		<script src="js/whenistudy/whenistudybackend.js"></script>
 	</body>
 </html>
