@@ -37,11 +37,11 @@ var ExamAllocEntryInputs = []; //array of inputs for pulling information
 
 //Intermidate calculation variables
 var examDate = []; //array of exams: {str examName, date examTime}, sorted in ascending examTime
-var studyDate = []; //array of dates and how long the student will study for each of those dates: {date date, float hours}
-var examAllocEntry = [] //array of time allocations for exams: {int examDateIndex, int hoursAllocated}
+var studyDate = []; //array of dates and how long the student will study for each of those dates: {date date, float hours}, sorted in ascending date
+var examAllocEntry = [] //array of time allocations for exams: {int examDateIndex, int hoursAllocated}, sorted in descending examDateIndex
 var targetHourBlock = 0; //Blocks to allocate study time for a course
 
-var resultData; //{examDates:[{str examName, date examTime}, ...],studyDates:[{date:date, 3:3.4, 4:2.3} ...]}; 
+var resultData; //{examDates:[{str examName, date examTime}, ...],studyDates:[{date:date, 3:3.4, 4:2.3} ...]};
 /*SECTION: FUNCTIONS*/
 
 /*Checks the requirements of moving to the next panel, can be set so that a user
@@ -111,7 +111,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     }
 
     studyDate.sort(function(date1, date2) {
-      return date2.date - date1.date;
+      return date1.date - date2.date;
     });
 
     return true;
@@ -123,7 +123,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
       return false;
     }
 
-    ExamAllocEntry = [];
+    examAllocEntry = [];
     var culTimeUsed = 0;
 
     for (var i = 0; i < ExamAllocEntryInputs.length; i++) {
@@ -142,7 +142,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
         alert("The time limit leading up to the course \"" + examDate[i].examName + "\" has been exceeded.\nIf you need more time studying for later courses, take away time from earlier courses!");
         return false;
       }
-      ExamAllocEntry.push({examDateIndex:i, hoursAllocated:tempHoursAllocated});
+      examAllocEntry.push({examDateIndex:i, hoursAllocated:tempHoursAllocated});
     }
 
     if (culTimeUsed == 0) {
@@ -156,7 +156,9 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
       }
     }
 
-    alert("yay");
+    examAllocEntry.reverse();
+    GenerateStudyTime();
+    alert(JSON.stringify(resultData));
     return false;
   },
   function() {
@@ -214,6 +216,98 @@ function NextPanel() {
   effects: WILL corrupt Intermidate calculation variables
            may change resultData */
 function GenerateStudyTime() {
-  var tempExamAllocationQueueTemp = [];//for exams on dates with
-  var tempExamAllocationQueue = [];
+  resultData = {examDates:examDate,studyDates:[]};
+
+dateloop:
+  for (var i = studyDate.length -1; i >= 0; i--){
+    var newDate = {date:studyDate[i].date};
+    resultData.studyDates.unshift(newDate);
+
+    var ignoredExams = []; //Exam Alloc Entry happening on studyDate[i]
+
+    //assign time to studyDate from each of the examAllocEntry, up to targetHourBlock
+    var keptExams = [];
+
+    console.log(JSON.stringify(examAllocEntry));
+    while (examAllocEntry.length > 0) {
+      if (studyDate[i].date <= examDate[examAllocEntry[0].examDateIndex].examTime && examDate[examAllocEntry[0].examDateIndex].examTime - studyDate[i].date < 1000 * 60 * 60 * 24){
+        ignoredExams.push(examAllocEntry.shift());
+      }
+      else if (studyDate[i].date > examDate[examAllocEntry[0].examDateIndex].examTime){
+        keptExams.push(examAllocEntry.shift());
+      }else{
+        var hoursAssigned = Math.min(Math.min(targetHourBlock, examAllocEntry[0].hoursAllocated),studyDate[i].hours);
+
+        if (hoursAssigned > 0){
+          newDate[String(examAllocEntry[0].examDateIndex)] = hoursAssigned;
+        }
+        examAllocEntry[0].hoursAllocated -= hoursAssigned;
+        studyDate[i].hours -= hoursAssigned;
+        if (examAllocEntry[0].hoursAllocated > 0){
+          keptExams.push(examAllocEntry.shift());
+        } else {
+          examAllocEntry.shift();
+        }
+
+        if (studyDate[i].hours <= 0) {
+          examAllocEntry = ignoredExams.concat(examAllocEntry.concat(keptExams));
+          continue dateloop;
+        }
+      }
+    }
+    examAllocEntry = keptExams;
+    keptExams = [];
+
+    //assign time to studyDate from each of the examAllocEntry, disregarding targetHourBlock
+    while (examAllocEntry.length > 0) {
+      if (studyDate[i].date > examDate[examAllocEntry[0].examDateIndex].examTime){
+        keptExams.push(examAllocEntry.shift());
+      }else{
+        var hoursAssigned = Math.min(examAllocEntry[0].hoursAllocated, studyDate[i].hours);
+
+        if (hoursAssigned > 0){
+          newDate[String(examAllocEntry[0].examDateIndex)] += hoursAssigned;
+        }
+        examAllocEntry[0].hoursAllocated -= hoursAssigned;
+        studyDate[i].hours -= hoursAssigned;
+        if (examAllocEntry[0].hoursAllocated > 0){
+          keptExams.push(examAllocEntry.shift());
+        } else {
+          examAllocEntry.shift();
+        }
+
+        if (studyDate[i].hours <= 0) {
+          examAllocEntry = ignoredExams.concat(examAllocEntry.concat(keptExams));
+          continue dateloop;
+        }
+      }
+    }
+    examAllocEntry = keptExams;
+    keptExams = [];
+
+    ignoredExams.sort(function(exam1, exam2) {
+      return exam2.date - exam1.date;
+    });
+
+    //assign time to studyDate from each of the ignoredExams, disregarding targetHourBlock
+    while (ignoredExams.length > 0) {
+      if (studyDate[i].date > examDate[ignoredExams[0].examDateIndex].examTime){
+        keptExams.push(examAllocEntry.shift());
+      }else{
+        var hoursAssigned = Math.min(ignoredExams[0].hoursAllocated, studyDate[i].hours);
+
+        if (hoursAssigned > 0){
+          newDate[String(ignoredExams[0].examDateIndex)] = hoursAssigned;
+        }
+        ignoredExams[0].hoursAllocated -= hoursAssigned;
+        studyDate[i].hours -= hoursAssigned;
+        if (ignoredExams[0].hoursAllocated > 0){
+          break;
+        } else {
+          ignoredExams.shift();
+        }
+      }
+    }
+    examAllocEntry = ignoredExams.concat(examAllocEntry);
+  }
 }
