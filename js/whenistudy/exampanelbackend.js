@@ -81,7 +81,7 @@ class ExamEntry {
     this.div.append(btnInport);
 
     var lblDate = $("<h5></h5>");
-    lblDate.text("Exam start time / due date for final project:");
+    lblDate.text("Final exam/project:");
     this.div.append(lblDate);
 
     this.txtDate = $("<input></input>");
