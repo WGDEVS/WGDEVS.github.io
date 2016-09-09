@@ -56,6 +56,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     currentDate = new Date(TXT_CURRENT_DATE.value);
     if (isNaN(currentDate.getTime())) {
       alert("The Starting Time is invaild!");
+      TXT_CURRENT_DATE.focus();
       return false;
     }
 
@@ -68,12 +69,20 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
 
       if (examName1 === "") {
         alert("At least one of (Subject or Course Number) cannot be empty!");
+        i.txtSubject.focus();
       } else if (isNaN(examTime1.getTime())) {
-        alert("The course \"" + examName1 + "\" has an invalid date!");
+        alert("The course " + examName1 + " finishes at an invalid time!");
+        i.txtDate.focus();
       } else if (examTime1.getTime() <= currentDate.getTime()) {
-        alert("The course \"" + examName1 + "\" finishes before the Starting Time!");
+        alert("The course " + examName1 + " finishes before the Starting Time!");
+        i.txtDate.focus();
       } else if (examName1.indexOf("\"") != -1){
-        alert("The course name \"" + examName1 + "\" contains the illegal character \" !");
+        alert("The course name " + examName1 + " contains the illegal character \" !");
+        if (i.txtCode.val().indexOf("\"") != -1) {
+          i.txtCode.focus();
+        } else {
+          i.txtSubject.focus();
+        }
       } else {
         examDate.push({examName:examName1, examTime:examTime1});
         continue;
@@ -91,12 +100,13 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     studyDate = [];
 
     for (var i = 0; i < studyCalendars.length; i++) {
-      var currentStudyCalendarEvents = studyCalendars[i].fullCalendar( 'clientEvents')
+      var currentStudyCalendarEvents = studyCalendars[i].fullCalendar('clientEvents')
       for (var j = 0; j < currentStudyCalendarEvents.length; j++) {
         if (currentStudyCalendarEvents[j].hours != null) {
           if (!IsValidHours(currentStudyCalendarEvents[j].hours)) {
             var dateTemp = new Date(currentStudyCalendarEvents[j].start + 0);
-            alert("You are spending an invalid amount of hours studying on " + dateTemp.toUTCString().slice(0, 16) + "!");
+            alert("You are spending an invalid amount of hours on " + dateTemp.toUTCString().slice(0, 16) + "!\n(Valid amounts are between 0 and 24)");
+
             return false;
           } else if (currentStudyCalendarEvents[j].hours > 0) {
             studyDate.push({date:currentStudyCalendarEvents[j].start, hours:currentStudyCalendarEvents[j].hours});
@@ -120,6 +130,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     targetHourBlock = parseFloat(txtMaxCourseDailyHours.value);
     if (isNaN(targetHourBlock) || targetHourBlock <= 0) {
       alert("Invalid maximum hours spent on single subject!\n(3 hours recommended)");
+      txtMaxCourseDailyHours.focus();
       return false;
     }
 
@@ -134,12 +145,14 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
 
       if (isNaN(tempHoursAllocated) || tempHoursAllocated < 0) {
         alert("The course \"" + examDate[i].examName + "\" has an invalid amount of time allocated!");
+        ExamAllocEntryInputs[i].txtTimeAllocation.focus();
         return false;
       }
 
       culTimeUsed += tempHoursAllocated;
       if (culTimeUsed > ExamAllocEntryInputs[i].maxTimeAllocation) {
         alert("The time limit leading up to the course \"" + examDate[i].examName + "\" has been exceeded.\nIf you need more time studying for later courses, take away time from earlier courses!");
+        ExamAllocEntryInputs[i].txtTimeAllocation.focus();
         return false;
       }
       examAllocEntry.push({examDateIndex:i, hoursAllocated:tempHoursAllocated});
@@ -147,6 +160,7 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
 
     if (culTimeUsed == 0) {
       alert("You have not allocated any time for your courses, enter the time you want to spend on a course in the \"Hours Allocated\" column!");
+      ExamAllocEntryInputs[0].txtTimeAllocation.focus();
       return false;
     }
 
