@@ -50,7 +50,7 @@ class ExamAllocEntry {
       self.lblTimeLeft = $("<span></span>");
       self.lblTimeLeft.appendTo(trTimeLeftStrongContainer);
 
-      trTimeLeftStrongContainer.append("/" + String(maxTimeAllocation));
+      trTimeLeftStrongContainer.append("/" + (maxTimeAllocation).toFixed(10).replace(/0+$/, "").replace(/\.$/,""));
       var trTimeLeftCenterContainer = $("<center></center>");
       trTimeLeftCenterContainer.append(trTimeLeftStrongContainer);
       tdTimeLeft.append(trTimeLeftCenterContainer);
@@ -62,7 +62,7 @@ class ExamAllocEntry {
   }
 
   updateTimeLeft(timeUsed) {
-    this.lblTimeLeft.text(String(this.maxTimeAllocation - timeUsed));
+    this.lblTimeLeft.text((this.maxTimeAllocation - timeUsed).toFixed(10).replace(/0+$/, "").replace(/\.$/,""));
 
     if (isNaN(timeUsed) || timeUsed > this.maxTimeAllocation || timeUsed < 0) {
       this.lblTimeLeft.attr('style', 'color:red');

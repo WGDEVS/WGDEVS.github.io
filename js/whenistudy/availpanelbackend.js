@@ -59,7 +59,7 @@ function AvailPanelNewCalendar(date) {
   cal.appendTo(AVAIL_PANEL);
   cal.fullCalendar({
     editable: true,
-    eventLimit: true, // allow "more" link when too many events
+    eventLimit: false, // allow "more" link when too many events
     eventClick: function(event) {
       if (!event.inputTime) {
         return false;

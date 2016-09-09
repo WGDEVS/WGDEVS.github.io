@@ -12,8 +12,8 @@ const IND_RESULT = 4; //Index of the panel where the completed study schedule is
 var PANEL_DISPLAY = [document.getElementById("mainPanel"),
                      document.getElementById("examPanel"),
                      document.getElementById("availPanel"),
-                    document.getElementById("allocPanel") /*,
-                     document.getElementById("resultPanel") */
+                    document.getElementById("allocPanel"),
+                     document.getElementById("resultPanel")
                    ];
 
 var NEXT_BUTTON = document.getElementById("nextButton");
@@ -41,7 +41,7 @@ var studyDate = []; //array of dates and how long the student will study for eac
 var examAllocEntry = [] //array of time allocations for exams: {int examDateIndex, int hoursAllocated}, sorted in descending examDateIndex
 var targetHourBlock = 0; //Blocks to allocate study time for a course
 
-var resultData; //{examDates:[{str examName, date examTime}, ...],studyDates:[{date:date, 3:3.4, 4:2.3} ...]};
+var resultData; //{currentDate: date, examDates:[{str examName, date examTime}, ...],studyDates:[{date:date, 3:3.4, 4:2.3} ...]};
 /*SECTION: FUNCTIONS*/
 
 /*Checks the requirements of moving to the next panel, can be set so that a user
@@ -117,8 +117,8 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
     return true;
   },
   function() {
-    targetHourBlock = parseInt(txtMaxCourseDailyHours.value);
-    if (isNaN(targetHourBlock)) {
+    targetHourBlock = parseFloat(txtMaxCourseDailyHours.value);
+    if (isNaN(targetHourBlock) || targetHourBlock <= 0) {
       alert("Invalid maximum hours spent on single subject!\n(3 hours recommended)");
       return false;
     }
@@ -158,8 +158,8 @@ var CHECK_PANEL_PROGRESS_REQUIREMENT = [
 
     examAllocEntry.reverse();
     GenerateStudyTime();
-    alert(JSON.stringify(resultData));
-    return false;
+
+    return true;
   },
   function() {
     return false;
@@ -197,6 +197,9 @@ var INITIALIZE_PANEL = [
   },
   function() {
     AllocPanelInitialize();
+  },
+  function() {
+    ResultPanelInitalize();
   }
 ];
 
@@ -211,16 +214,84 @@ function NextPanel() {
   }
 }
 
+/*Goes to resultPanel and fills it with information from resultData
+  requires: resultData must be filled
+  effects: may changes the properties of the forms shown to the user
+           may display prompts to user*/
+function GoToResult() {
+  activePanel = 4;
+  UpdatePanelDisplay();
+  ResultPanelInitalize();
+}
+
+/*Parses all dates from resultData
+  requires: all dates in resultData must be ISO format strings
+  effects: may change resultData*/
+function parseDatesInResultdata() {
+  resultData.currentDate = new Date(resultData.currentDate);
+  currentDate = resultData.currentDate;
+  for (var i = 0; i < resultData.examDates.length; i++) {
+    resultData.examDates[i].examTime = new Date(resultData.examDates[i].examTime);
+  }
+  for (var i = 0; i < resultData.studyDates.length; i++) {
+    resultData.studyDates[i].date = new Date(resultData.studyDates[i].date);
+  }
+}
+
+/*Loads resultData from a file, or displays a message if it is invalid
+  effects: may change resultData
+           may display prompts to user*/
+function loadFromFile() {
+  var f = document.getElementById('tempHiddenForInput');
+  if (f == null){
+    f = document.createElement('input');f.id="tempHiddenForInput";f.style.display='none';f.type='file';f.name='file';PANEL_DISPLAY[0].appendChild(f);
+
+    f.addEventListener('change',
+    function readSingleFile(e) {
+      var file = e.target.files[0];
+
+      if (!file) {
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          resultData = JSON.parse(e.target.result);
+          parseDatesInResultdata();
+          GoToResult();
+        }catch(err) {
+          console.log(JSON.stringify(err));
+          alert("Invalid file!");
+        }
+      };
+      reader.readAsText(file);
+    }
+    , false);
+  }
+  f.click();
+}
+
+function loadFromCookie() {
+  try {
+    resultData = JSON.parse($.cookie('resultData'));
+    parseDatesInResultdata();
+    GoToResult();
+  }catch(err) {
+    console.log(JSON.stringify(err));
+    alert("Study schedule not found in browser!");
+  }
+}
+
 /*Changes resultData to contain a study schedule
   requires: all Intermidate calculation variables must be filled in
   effects: WILL corrupt Intermidate calculation variables
            may change resultData */
 function GenerateStudyTime() {
-  resultData = {examDates:examDate,studyDates:[]};
+  resultData = {currentDate: currentDate, examDates:examDate, studyDates:[]};
 
 dateloop:
   for (var i = studyDate.length -1; i >= 0; i--){
-    var newDate = {date:studyDate[i].date};
+    var newDate = {date:new Date(studyDate[i].date+0)};
     resultData.studyDates.unshift(newDate);
 
     var ignoredExams = []; //Exam Alloc Entry happening on studyDate[i]

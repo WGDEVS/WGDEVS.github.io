@@ -12,6 +12,7 @@
 
 		<!--Common scripts-->
 		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/ie10-viewport-bug-workaround.js"></script>
 
@@ -80,7 +81,7 @@
 		<div class="container-fluid">
 					<!--display:none-->
 					<!--display:block-->
-			<div class="col-xs-8 col-xs-push-2">
+			<div class="col-md-8 col-md-push-2 col-xs-12">
 				<!--the inital form-->
 				<div id="mainPanel" style="display:block">
 					<h1><center>Main Menu</center></h1>
@@ -91,14 +92,14 @@
 						</button>
 					</div>
 					<div class="row">
-						<button class="btn btn-default">
+						<button type="file" class="btn btn-default" onclick="loadFromFile()">
 							Load from File
 							<i class="fa fa-arrow-left"></i>
 							<i class="fa fa-folder"></i>
 						</button>
 					</div>
 					<div class="row">
-						<button class="btn btn-default">
+						<button class="btn btn-default" onclick="loadFromCookie()">
 							Load from Browser
 							<i class="fa fa-arrow-left"></i>
 							<i class="fa fa-internet-explorer"></i>
@@ -146,7 +147,34 @@
 				</div>
 
 				<div id="resultPanel" style="display:none">
-					<h1><center>Your study schedule</center></h1>
+					<h1 class="bigTitle"><center>Your study schedule</center></h1>
+
+					<div class="row">
+						<button onClick="saveToFile()" class="btn btn-default">
+							Save to File
+							<i class="fa fa-arrow-right"></i>
+							<i class="fa fa-folder"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="saveToCookie()" class="btn btn-default">
+							Save to Browser
+							<i class="fa fa-arrow-right"></i>
+							<i class="fa fa-internet-explorer"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="printDiv()" class="btn btn-default">
+							Print
+							<i class="fa fa-print"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="reset()" class="btn btn-default">
+							New Study Schedule
+							<i class="fa fa-calendar-plus-o"></i>
+						</button>
+					</div>
 				</div>
 
 				<!--the next button-->
@@ -176,6 +204,7 @@
 		<script src="js/whenistudy/exampanelbackend.js"></script>
 		<script src="js/whenistudy/availpanelbackend.js"></script>
 		<script src="js/whenistudy/allocpanelbackend.js"></script>
+		<script src="js/whenistudy/resultpanelbackend.js"></script>
 		<script src="js/whenistudy/whenistudybackend.js"></script>
 	</body>
 </html>
