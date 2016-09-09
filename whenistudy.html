@@ -10,13 +10,32 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
+		<!--Common scripts-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/ie10-viewport-bug-workaround.js"></script>
+
 		<!-- Font Awesome -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 		<!-- devicons -->
 		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
 
+		<!-- stuff for the datepicker -->
+		<script type="text/javascript" src="js/jquery.simple-dtpicker.js"></script>
+		<link type="text/css" href="css/jquery.simple-dtpicker.css" rel="stylesheet">
+
+		<!-- stuff for the calendar -->
+		<link href='css/fullcalendar.css' rel='stylesheet' />
+		<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+		<script src='js/moment.min.js'></script>
+		<script src='js/fullcalendar.min.js'></script>
+
+		<!-- style -->
 		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/whenistudyfrontend.css">
+
 
 	</head>
 	<body>
@@ -61,25 +80,111 @@
 
 		<div class="container-fluid">
 					<!--display:none-->
-			<div id="initalPanel" style="display:block">
-				<div class="row">
-					<div class="col-xs-10 col-xs-push-1">
-						<a class="btn btn-default" href="https://ca.linkedin.com/pub/william-gao/103/4b4/272" target="_blank">
-							Linked
-							<i class="fa fa-linkedin-square"></i>
-						</a>
+					<!--display:block-->
+			<div class="col-md-8 col-md-push-2 col-xs-12">
+				<!--the inital form-->
+				<div id="mainPanel" style="display:block">
+					<h1><center>Main Menu</center></h1>
+					<div class="row">
+						<button onClick="NextPanel()" class="btn btn-default">
+							New Study Schedule
+							<i class="fa fa-calendar-plus-o"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button type="file" class="btn btn-default" onclick="loadFromFile()">
+							Load from File
+							<i class="fa fa-arrow-left"></i>
+							<i class="fa fa-folder"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button class="btn btn-default" onclick="loadFromCookie()">
+							Load from Browser
+							<i class="fa fa-arrow-left"></i>
+							<i class="fa fa-internet-explorer"></i>
+						</button>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-10 col-xs-push-1">
-						<a class="btn btn-default" href="https://github.com/WGDEVS" target="_blank">
-							GitHub
-							<i class="fa fa-github"></i>
-						</a>
+
+				<!--the exam input form-->
+				<div id="examPanel" style="display:none">
+					<h1><center>Enter Courses</center></h1>
+
+					<h4 style="display: inline">Staring Time:</h4>
+
+					<input name="date" id="txtCurrentDate" style="display: inline">
+					</input>
+					<script type="text/javascript">
+						$(function(){
+							$('*[name=date]').appendDtpicker();
+						});
+					</script>
+				</div>
+
+				<!--the avail form-->
+				<div id="availPanel" style="display:none">
+					<h1><center>Enter daily study time</center></h1>
+					<h3><center>(click a green bar to assign time and try to underestimate)</center></h3>
+				</div>
+
+				<div id="allocPanel" style="display:none">
+					<h1><center>Enter study time per course</center></h1>
+
+					<center>
+						<h4 style="display: inline">Enter maximum hours you can spend on a single subject within a day: </h4>
+						<input id="txtMaxCourseDailyHours" style="display: inline" size="5">
+					</center>
+
+					<table id="allocMainTable" class="alloctable padded-item">
+						<tr class="alloctr">
+							<th class="allocth"><center>Course</center></th>
+							<th class="allocth"><center>Hours Allocated</center></th>
+							<th class="allocth"><center>Hours left</center></th>
+						</tr>
+					</table>
+				</center>
+				</div>
+
+				<div id="resultPanel" style="display:none">
+					<h1 class="bigTitle"><center>Your study schedule</center></h1>
+
+					<div class="row">
+						<button onClick="saveToFile()" class="btn btn-default">
+							Save to File
+							<i class="fa fa-arrow-right"></i>
+							<i class="fa fa-folder"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="saveToCookie()" class="btn btn-default">
+							Save to Browser
+							<i class="fa fa-arrow-right"></i>
+							<i class="fa fa-internet-explorer"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="printDiv()" class="btn btn-default">
+							Print
+							<i class="fa fa-print"></i>
+						</button>
+					</div>
+					<div class="row">
+						<button onClick="reset()" class="btn btn-default">
+							New Study Schedule
+							<i class="fa fa-calendar-plus-o"></i>
+						</button>
 					</div>
 				</div>
+
+				<!--the next button-->
+				<button onClick="NextPanel()" id="nextButton" class="btn btn-default" style="display: none">
+					Next Step
+					<i class="fa fa-arrow-circle-o-right"></i>
+				</button>
 			</div>
 		</div>
+		<p><center><small>For entertainment purposes only.<br>Not a substitue for your academic advisor&trade;.<br>WGDEV is not responsibile for any harm misuse of this site causes.</small></center></p>
 
 		<!--Footer-->
 		<div class="bs-footer" role="contentinfo">
@@ -94,10 +199,12 @@
 			</p>
 		</div>
 
-		<!--Scripts-->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/ie10-viewport-bug-workaround.js"></script>
-		<script src="js/projectsfilter.js"></script>
+
+		<!-- code -->
+		<script src="js/whenistudy/exampanelbackend.js"></script>
+		<script src="js/whenistudy/availpanelbackend.js"></script>
+		<script src="js/whenistudy/allocpanelbackend.js"></script>
+		<script src="js/whenistudy/resultpanelbackend.js"></script>
+		<script src="js/whenistudy/whenistudybackend.js"></script>
 	</body>
 </html>

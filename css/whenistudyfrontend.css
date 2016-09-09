@@ -1,0 +1,46 @@
+/* Style of caption of input box */
+h5{
+  display: inline;
+  margin-left: 10px;
+}
+
+/* Style of input box */
+input{
+  display: inline;
+  margin-left: 2px;
+}
+
+/* Styles for tiny buttons */
+.btn-primary{
+  margin-right: 5px;
+}
+
+/* Used to pad items in a verical list */
+.padded-item{
+  margin-top: 10px;
+}
+
+/* Used to inicate a button padded on both sides */
+.padded-button{
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+/* Formating for the table in the allocPanel*/
+.alloctable {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.alloctr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.alloctd, .allocth {
+    border: 1px solid #000000;
+    text-align: left;
+    padding: 8px;
+}
+.expand {
+    width: 100%;
+}
