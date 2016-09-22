@@ -1,16 +1,88 @@
 /* Styles for common elements */
 body{
-  padding-top: 60px;
+  background-color: #FDFDFD;
+  overflow-x: hidden;
+  position: relative;
+  /*padding-top: 60px;*/
+}
+
+/* style for background/text in jumbotron" */
+.jumbotron {
+  color: white;
+  text-align: center;
+
+  background-image: url('../images/mountain-background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .navbar{
+  background-color: #EBF6F9;
+
   font-size: 20px;
 }
 
 .bs-footer{
   border-top: 1px solid;
   margin-top:10px;
+  border-top-color: #F0F0F0;
 }
+
+/*.bs-footer {
+  position: absolute;
+  width: 100%;
+
+  color: white;
+  text-align: center;
+
+  background-image: url('../images/mountain-background.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+*/
+
+
+/*Styles for transparent List items */
+.li-transparent{
+  display: table;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+}
+@media only screen and (min-width: 768px) {
+  .li-transparent{
+    display: inline;
+  }
+}
+
+/* Styles for transparent buttons */
+.btn-transparent{
+  background-color: #F6F6F6;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+  background-color: transparent;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top:10px;
+  font-size:20px;
+}
+.btn-transparent:hover   {
+  color: #FFFFFF;
+  background-color: rgba(255,255,255,0.25);
+}
+
+.btn-transparent:link {
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
+.btn-transparent:visited {
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+
 
 /* Styles for page wide buttons */
 .btn-default{
@@ -38,6 +110,7 @@ body{
 .project-panel{
   margin-top:  10px;
 	border-top: 1px solid;
+  border-top-color: #F0F0F0;
 }
 
 /* Styles for header of panels of projects*/

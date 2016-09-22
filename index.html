@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="initial-scale=1">
-		<title> WGDEV Home </title>
+		<title> WGDEV </title>
 
 		<!-- We link the CDN ccs files here -->
 		<!-- Latest compiled and modified CSS -->
@@ -15,9 +15,12 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
 		<link rel="stylesheet" href="css/main.css">
+		<!-- devicons -->
+		<link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/master/devicon.min.css">
+
 
 	</head>
-	<body>
+	<body data-spy="scroll" data-target="#navigationbar">
 			<!--Navbar-->
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container-fluid" id="navfluid">
@@ -40,54 +43,60 @@
 					<ul class="nav navbar-nav">
 						<li ><a href="whenistudy.html">WhenIStudy</a></li>
 					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a>Home</a></li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Projects <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li id="navAll"><a href="projects.html">All</a></li>
-								<li id="navAndroid"><a href="projects.html?li=Android">Android (Java)</a></li>
-								<li id="navPython"><a href="projects.html?li=Python">Python</a></li>
-								<li id="navCSharp"><a href="projects.html?li=CSharp">C#</a></li>
-							</ul>
-						</li>
-						<li><a href="resume.html">Resume</a></li>
+					<ul class="nav navbar-nav navbar-right" role="tablist">
+						<li><a class="scroll" href="#home">Home</a></li>
+						<li><a class="scroll" href="#experience">Experience</a></li>
+						<li><a class="scroll" href="#projects">Projects</a></li>
+						<li><a href="pdfs/resume.pdf" target="_blank">Resume</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<div class ="container-fluid">
+
+		<div class="row" id="home">
+			<div class="jumbotron">
+				<br></br>
+				<br></br>
+				<h1>William <strong>Gao</strong></h1>
+						<div>
+							<ul style="list-style-type:none;padding:0; margin:0;">
+										<li class="li-transparent">
+											<a href="pdfs/resume.pdf" target="_blank" class="btn btn-transparent">
+												Resume
+												<span class="glyphicon glyphicon-file"></span>
+											</a>
+										</li>
+										<li class="li-transparent">
+											<a href="https://ca.linkedin.com/pub/william-gao/103/4b4/272" target="_blank" class="btn btn-transparent">
+												Linked
+												<i class="fa fa-linkedin-square"></i>
+											</a>
+										</li>
+										<li class="li-transparent">
+												<a href="https://github.com/WGDEVS" target="_blank" class="btn btn-transparent" target="_blank">
+													GitHub
+													<i class="fa fa-github"></i>
+												</a>
+										</li>
+									</ul>
+								</div>
+				<br></br>
+			</div>
+		</div>
+
+		<!-- Main boilerplate stuff -->
+		<div class ="container">
 			<div class="col-sm-2 col-xs-12">
 			<div class="row">
 				<img src="images/wgdev.jpg" width="100%"></img>
 			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<a class="btn btn-default" href="https://ca.linkedin.com/pub/william-gao/103/4b4/272" target="_blank">
-						Linked
-						<i class="fa fa-linkedin-square"></i>
-					</a>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<a class="btn btn-default" href="https://github.com/WGDEVS" target="_blank">
-						GitHub
-						<i class="fa fa-github"></i>
-					</a>
-				</div>
-			</div>
 			</div>
 			<div class="col-sm-10 col-xs-12">
 				<div class="row container-fluid">
-				<h2>Welcome to my website</h>
+				<h2>About Me</h>
 				</div>
 				<div class="row container-fluid">
 				<p>Hello, I am William Gao. Sometimes I go by the trade name WGDEV. This website contains information about myself and some of the projects that I have been working on.</p>
-				</div>
-
-				<div class="row container-fluid">
-				<h2>About Me</h>
 				</div>
 				<div class="row container-fluid">
 				<p>
@@ -99,10 +108,6 @@
 					I also like to work on side projects in my spare time.
 				</p>
 				</div>
-
-				<div class="row container-fluid">
-				<h2>Contact Information</h>
-				</div>
 				<div class="row container-fluid">
 				<p>I can be contacted by email at
 					<a href="mailto:hc2gao@uwaterloo.ca">hc2gao@uwaterloo.ca</a>
@@ -110,6 +115,171 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Experience -->
+		<div class="row" style="margin-top:40px">
+			<div class="col-xs-12">
+				<div class="container">
+					<p style="position:relative;"><a id="experience" style="position:absolute; top:-40px;"><br></a></p>
+					<h1>Experience</h1>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+				<p>Methought I heard a voice cry, “Sleep no more!
+Macbeth does murder sleep”—the innocent sleep,
+Sleep that knits up the raveled sleave of care,
+The death of each day’s life, sore labor’s bath,
+Balm of hurt minds, great nature’s second course,
+Chief nourisher in life’s feast.</p>
+</div>
+</div>
+			</div>
+		</div>
+
+
+		<!-- Projects -->
+		<div class="row" style="margin-top:40px">
+			<div class="col-xs-12">
+				<div class="container">
+					<p style="position:relative;"><a id="projects" style="position:absolute; top:-40px;"><br></a></p>
+					<h1>Projects</h1>
+				</div>
+			</div>
+		</div>
+				<div class="container project-panel">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 class="project-header">Swippy Bird</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-android-plain colored"></i>
+								<i class="devicon devicon-java-plain colored"></i>
+							</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<img class="img-rounded gameImage" width="100%" src="images/project_swippy.jpg" />
+						</div>
+						<div class="col-md-9">
+							<!--Description-->
+							<p class="gameInfo">
+							<p>A game where you play as a bird and avoid geometric shapes by swiping the screen. How far can the bird make it?</p>
+							<div class="col-xs-12 feature-description">
+								<ul>
+									<li><p>Comprehensive leaderboard and achievement system with google play integration.</p></li>
+									<li><p>Ability to resume paused games with careful management of the andoid lifecycle.</p></li>
+									<li><p>Procedural generation of the geometric shapes with recursion.</p></li>
+								</ul>
+							</div>
+							</p>
+							<!--Buttons-->
+							<a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.wgdev.swippybird&hl=en" target="_blank">
+								<i class="fa fa-play"></i>
+								Google Play
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="container project-panel">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 class="project-header">Integer Sorter</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-python-plain colored"></i>
+							</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<!--Description-->
+							<p class="gameInfo">
+							<p>A program that contains distinct functions for sorting a list of integers. The program recieves a list of integers, sorts the list using a method specified by the user and prints the sorted list to the screen.</p>
+							</p>
+							<!--Buttons-->
+							<a class="btn btn-primary" style="float: right;" href="https://github.com/WGDEVS/IntegerSorter" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
+							</a>
+						</div>
+						<div class="col-md-3 hidden-xs">
+							<img class="img-rounded gameImage" width="100%" src="images/project_sorter.png" /></div>
+					</div>
+				</div>
+
+				<div class="container project-panel">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 class="project-header">Router Simulator</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-python-plain colored"></i>
+							</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 hidden-xs">
+							<img class="img-rounded gameImage" width="100%" src="images/project_network.png" /></div>
+						<div class="col-md-9">
+							<!--Description-->
+							<p class="gameInfo">
+							<p>This program simulates a network consisting of routers. It features a command line interface to build and maintain the network and to display information about the network.</p>
+							<div class="col-xs-12 feature-description">
+								<ul>
+									<li><p>Finds the best route between two routers using dijkstra's algorithm</p></li>
+									<li><p>A comprehensive list structure that quickly and efficiently stores information about the network.</p></li>
+									<li><p>Packet tracer inspired names for the commands.</p></li>
+								</ul>
+							</div>
+							</p>
+							<!--Buttons-->
+							<a class="btn btn-primary" href="https://github.com/WGDEVS/RouterSim" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="container project-panel">
+					<div class="row">
+						<div class="col-xs-12">
+							<h2 class="project-header">Sea Battle: Custom Mission</h2>
+							<h2 class="devicons">
+								<i class="devicon devicon-windows8-original colored"></i>
+								<i class="devicon devicon-csharp-plain colored"></i>
+							</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-9">
+							<!--Description-->
+							<p class="gameInfo">
+							<p>Classic game of sea battle, with options to customize gameplay.</p>
+							<div class="col-xs-12 feature-description">
+								<ul>
+									<li><p>Very modular game items (ships/planes/missiles) made possible with object oriented programing</p></li>
+									<li><p>Gameplay against other players on the same LAN using Microsoft's system.net namespace</p></li>
+								</ul>
+							</div>
+							</p>
+							<!--Buttons-->
+							<a class="btn btn-primary" style="float: right;" href="https://github.com/WGDEVS/SeaBattle" target="_blank">
+								GitHub
+								<i class="fa fa-github"></i>
+							</a>
+							<a class="btn btn-primary" style="float: right;margin-right:10px" href="https://github.com/WGDEVS/SeaBattle/blob/master/WGDEV_SeaBattle.exe?raw=true" target="_blank">
+								Download
+								<i class="fa fa-download"></i>
+							</a>
+						</div>
+						<div class="col-md-3 hidden-xs">
+							<img class="img-rounded gameImage" width="100%" src="images/project_ship.png" /></div>
+					</div>
+				</div>
+
 
 		<!--Footer-->
 		<div class="bs-footer" role="contentinfo">
@@ -127,5 +297,50 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/ie10-viewport-bug-workaround.js"></script>
+		<script language="javascript" type="text/javascript">
+		document.getScroll= function(){
+		 if(window.pageYOffset!= undefined){
+		  return [pageXOffset, pageYOffset];
+		 }
+		 else{
+		  var sx, sy, d= document, r= d.documentElement, b= d.body;
+		  sx= r.scrollLeft || b.scrollLeft || 0;
+		  sy= r.scrollTop || b.scrollTop || 0;
+		  return [sx, sy];
+		 }
+		}
+		document.getScrollY= function() {
+			return document.getScroll()[1];
+		}
+currentlyScrolling = false;
+$(".scroll").on("click touchstart" , function (event) {
+				event.preventDefault();
+				//calculate destination place
+				var dest = 0;
+				if ($(this.hash).offset().top > $(document).height() - $(window).height()) {
+						dest = $(document).height() - $(window).height();
+				} else {
+						dest = $(this.hash).offset().top;
+				}
+				if (document.getScrollY() == dest || currentlyScrolling) {
+					console.log("no");
+				} else {
+					console.log("yes");
+					console.log(String(document.getScrollY()) + " " + String(dest));
+					currentlyScrolling=true;
+					//go to destination
+					$('html,body').animate({
+							scrollTop: dest
+					}, 500, 'swing', function() {
+						currentlyScrolling = false;
+						console.log("done");
+					});
+				}
+});
+$(window).on('activate.bs.scrollspy', function (e) {
+    history.replaceState({}, "", $("a[href^='#']", e.target).attr("href"));
+		hashTagActive =  $("a[href^='#']", e.target).attr("href");
+});
+		</script>
 	</body>
 </html>
