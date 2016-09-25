@@ -30,6 +30,15 @@ body{
   border-top-color: #F0F0F0;
 }
 
+/*provides consistant experience on click*/
+.navbar-default .navbar-nav > li > a:focus {
+    color: #777;
+}
+.navbar-default .navbar-nav>.active>a:hover {
+  color: #333;
+}
+
+
 /*.bs-footer {
   position: absolute;
   width: 100%;
